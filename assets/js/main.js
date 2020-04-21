@@ -9,7 +9,7 @@ let users = [
     {name: "Diana", sex: "female", "year of birth": 2000 },
     {name: "George", sex: "male", "year of birth": 1999 },
     {name: "Helen", sex: "female", "year of birth": 2000 }
-]
+];
 
 let today = new Date();
 let todayYear = today.getFullYear();
@@ -24,10 +24,7 @@ function calcAverage (user) {
 
     for (let i = 0; i < users.length; i++) {
         arr = users[i];
-        for (let key in arr) {
-            years = (todayYear - arr["year of birth"]);
-            
-        }
+        years = (todayYear - arr["year of birth"]);
         sumYears += years;
     }
     average = (sumYears / users.length);
@@ -36,54 +33,44 @@ function calcAverage (user) {
 }
 console.log("Средний возраст: " + calcAverage(users));
 
-
-function getWhoMore(user) {
-    let arr = [];
-    let arr1 = [];
-    let arrSex = [];
-    let arrFemale = [];
+function getWhoMore(users) {
     let arrMale = [];
-
+    let quantityMale = 0;
+    let quantityFemale = 0;
     for (let i = 0; i < users.length; i++) {
-        arr = users[i];
-        for (let key in arr) {
-            arr1 = arr.sex;
+        if (users[i].sex === "male") {
+            arrMale.push(users[i].sex); 
         }
-        arrSex.push(arr1);
     }
-
-    for (let j = 0; j < arrSex.length; j++) {
-        if (arrSex[j] === "male") {
-            arrMale.push(arrSex[j]);
-        }
-        else if (arrSex[j] === "female") {
-            arrFemale.push(arrSex[j]);
-        }
-        if (arrFemale > arrMale) {
-            return "Девушек больше, чем парней"
-        }
-        else if (arrFemale < arrMale) {
-            return "Парней больше, чем девушек"
-        }
+    quantityMale = arrMale.length;
+    quantityFemale = users.length - quantityMale;
+    if (quantityMale > quantityFemale) {
+        console.log("Парней больше.");
+        return quantityMale;
+    }
+    else if (quantityMale < quantityFemale) {
+        console.log("Девушек больше.");
+        return quantityFemale;
+    }
+    else {
+        console.log("Парней и девушек поровну");
+        return "quantityFemale = quantityMale";
     }
 }
-console.log(getWhoMore(users));
+// console.log("Их " + getWhoMore(users));
+getWhoMore(users);
 
-// let someUsersMale = users.filter(item => item.sex === "male");
-// let someUsersFemale = users.filter(item => item.sex === "female");
-// if (someUsersMale > someUsersFemale) {
-//     console.log("Парней больше, чем девушек");
-// }
-// else {
-//     console.log("Девушек больше, чем парней");
-// }
 
-function addProperty() {
-    let arrStaff = users;
-
-    for (let i = 0; i < arrStaff.length; i++) {
-        arrStaff[i].salary = 45;
+function addProperties (users) {
+    let arrStaff = [];
+    for (let i = 0; i < users.length; i++) {
+        for (let key in users[i]) {
+            var staff = Object.assign({}, users[i]);
+            staff.salary = 45;
+        }
+        arrStaff.push(staff);
     }
-    console.log(arrStaff);
+    return arrStaff;
 }
-addProperty();
+console.log(addProperties(users));
+// console.log(users);   // Проверка копирования
