@@ -64,10 +64,8 @@ getWhoMore(users);
 function addProperties (users) {
     let arrStaff = [];
     for (let i = 0; i < users.length; i++) {
-        for (let key in users[i]) {
             var staff = Object.assign({}, users[i]);
             staff.salary = 45;
-        }
         arrStaff.push(staff);
     }
     return arrStaff;
